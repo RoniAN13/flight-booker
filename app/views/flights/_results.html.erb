@@ -1,0 +1,30 @@
+<% if @results.present? %>
+<table  >
+<%= form_with scope: :booking, url: flights_path, method: :get, local: true,data:{turbo:false} do |f| %>
+    <%= f.hidden_field  :num_passengers ,value:@num_passengers %>
+  <tr>
+    <th></th>
+    <th>From</th>
+    <th>To</th>
+    <th>Date</th>
+    <th>Tickets</th>
+  </tr>
+  <% @results.each do |flight| %>
+
+    <tr>
+    <td><%= @results[0] == flight ? radio_button_tag('booking[flight_id]', flight.id, selected: true) : radio_button_tag('booking[flight_id]', flight.id) %></td>
+      <td><%= flight.departure_airport.airport_code %></td>
+      <td><%= flight.arrival_airport.airport_code %></td>
+      <td><%= flight.start_datetime.strftime('%d/%m/%Y %H:%M') %></td>
+      <td><%= @num_passengers %></td>
+    </tr>
+
+    <% end %>
+    <tr>
+    <td><%= f.submit 'Book' %></td>
+  </tr>
+<% end %>
+</table>
+<% else %>
+  <p>There is no flight match</p>
+<% end %>

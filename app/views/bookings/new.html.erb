@@ -1,0 +1,28 @@
+<article>
+<h4>Departure Airport:</h4>
+<p><%= @flight.departure_airport.airport_code%></p>
+<h4>Arrival Airport:</h4>
+<p><%= @flight.arrival_airport.airport_code%></p>
+<h4>Taking off at:</h4>
+<p><%= @flight.start_datetime.strftime("%d/%m/%Y %H:%M") %></p>
+<h4>Duration:</h4>
+<p><%= @flight.flight_duration %> hours</p>
+<h3>Pass:<%= @num_passengers %></h3>
+</article>
+<%= form_with model: @booking, url: bookings_path,data:{turbo:false} do |f| %>
+   
+    
+    <%= f.fields_for :passengers, @booking.passengers,data:{turbo:false} do |form| %>
+        <div>
+        
+          <%= form.text_field :name, placeholder: 'What is passenger name?' %>
+          <%= form.email_field :email, placeholder: 'example@email.com' %>
+          </div>
+          <% end %>
+          
+          
+          
+          <%= hidden_field_tag 'booking[flight_id]', @flight.id %>
+          <%= f.submit 'Book' %>
+          <%end%>
+        

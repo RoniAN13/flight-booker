@@ -1,0 +1,43 @@
+<h1>Flights:</h1>
+<table >
+<%= form_with scope: :flight, url: flights_path, method: :get, local: true,data:{turbo: false} do |f| %>
+    <tr>
+      <th><%= f.label :start_airport, 'From', class: 'label' %></th>
+      <th><%= f.label :finish_airport, 'To', class: 'label' %></th>
+      <th><%= f.label :start_datetime, 'Date', class: 'label' %></th>
+      <th><%= f.label :num_passengers, 'Tickets', class: 'label' %></th>
+    </tr>
+    <tr>
+
+    <td>
+      <div >
+        <%= f.select :departure_airport, options_for_select(@airports) %>
+      </div>
+    </td>
+    <td>
+      <div >
+        <%= f.select :arrival_airport, options_for_select(@airports), include_blank: true %>
+      </div>
+    </td>
+    <td>
+      <div >
+        <%= f.select :start_datetime, options_for_select(@start_datetime), include_blank: true %>
+      </div>
+    </td>
+    <td>
+    <div >
+      <%= f.select :num_passengers, options_for_select([1,2,3,4]) %>
+    </div>
+  </td>
+   
+  </tr>
+  <tr>
+    <td>
+      <%= f.submit 'Search' %>
+    </td>
+  </tr>
+<%end%>
+</table>
+<% if @results %>
+<%= render "results" %>
+<% end %>

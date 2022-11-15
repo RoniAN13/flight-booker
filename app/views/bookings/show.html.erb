@@ -1,0 +1,18 @@
+<article>
+<div >
+  <p>Thank you for your booking</p>
+</div>
+<div >
+  Your plane will fly from <b><%= @flight.departure_airport.airport_code %></b>
+  to <b><%= @flight.arrival_airport.airport_code %></b>
+  at <b><%= @flight.start_datetime.strftime('%d-%m-%Y %H:%M') %></b>. <br>
+  The plane will take <b><%= @flight.flight_duration %></b> hour(s). <br><br>
+
+  Passenger(s): <br>
+  <% @booking.passengers.each do |b| %>
+    <li>Name: <b><%= b.name %></b>, email: <b><%= b.email %></b></li>
+  <% end %> <br>
+  See you soon.
+</div>
+</article>
+
